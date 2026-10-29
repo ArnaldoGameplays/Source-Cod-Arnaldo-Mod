@@ -1,0 +1,3 @@
+pluginManagement { repositories { maven { url = 'https://maven.fabricmc.net/' }; gradlePluginPortal(); maven { url = 'https://maven.neoforged.net/releases' } } }
+rootProject.name = 'ArnaldoGameplays'
+include 'fabric', 'neoforge'

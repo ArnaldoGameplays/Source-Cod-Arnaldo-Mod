@@ -1,0 +1,14 @@
+plugins { id 'net.neoforged.moddev' version '2.0.147' }
+base { archivesName = 'exercito-de-arnaldos-neoforge' }
+neoForge {
+    version = rootProject.targets[rootProject.mcVersion][1]
+    runs {
+        server { server(); gameDirectory = rootProject.file('../test-26x/neoforge-'+rootProject.mcVersion); programArgument '--nogui' }
+        client { client(); gameDirectory = file('run-client') }
+    }
+    mods { arnaldo { sourceSet sourceSets.main } }
+}
+processResources {
+    inputs.properties(version: project.version, minecraft: rootProject.mcVersion, neo: rootProject.targets[rootProject.mcVersion][1])
+    filesMatching('META-INF/neoforge.mods.toml') { expand version: project.version, minecraft: rootProject.mcVersion, neo: rootProject.targets[rootProject.mcVersion][1] }
+}

@@ -1,0 +1,25 @@
+ext.mcVersion = findProperty('mcVersion') ?: '26.1'
+ext.loaderVersion = mcVersion == '26.3' ? '0.19.3' : '0.18.4'
+ext.targets = [
+    '26.1': ['0.145.1+26.1', '26.1.0.19-beta'],
+    '26.1.1': ['0.145.4+26.1.1', '26.1.1.15-beta'],
+    '26.1.2': ['0.155.3+26.1.2', '26.1.2.124'],
+    '26.2': ['0.161.0+26.2', '26.2.0.93'],
+    '26.3': ['0.165.0+26.3', '26.3.0.99']
+]
+if (!targets.containsKey(mcVersion)) throw new GradleException('Unsupported Minecraft version: '+mcVersion)
+allprojects { group = 'br.com.arnaldo'; version = '1.0.0+'+rootProject.mcVersion }
+subprojects {
+    apply plugin: 'java-library'
+    java { toolchain.languageVersion = JavaLanguageVersion.of(25); withSourcesJar() }
+    tasks.withType(JavaCompile).configureEach { options.encoding = 'UTF-8'; options.release = 25 }
+    sourceSets.main.java.srcDir rootProject.file('common/src/main/java')
+    sourceSets.main.resources.srcDir rootProject.file('common/src/main/resources')
+    def apiFamily = rootProject.mcVersion == '26.3' ? '26.3' : 'legacy'
+    sourceSets.main.java.srcDir rootProject.file('versions/' + apiFamily)
+    if (rootProject.hasProperty('smokeTest')) {
+        sourceSets.main.java.srcDir rootProject.file('smoke26/common')
+        sourceSets.main.java.srcDir rootProject.file('smoke26/' + project.name)
+        sourceSets.main.java.srcDir rootProject.file('smoke26/versions/' + apiFamily)
+    }
+}

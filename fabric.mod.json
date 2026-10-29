@@ -1,0 +1,7 @@
+{
+  "schemaVersion": 1, "id": "arnaldo", "version": "${version}",
+  "name": "Exército de Arnaldos", "icon": "assets/arnaldo/icon.png", "description": "Seu exército de companheiros ArnaldoGameplays.",
+  "environment": "*", "license": "All-Rights-Reserved",
+  "entrypoints": {"main": ["br.com.arnaldo.fabric.ArnaldoFabric"], "client": ["br.com.arnaldo.fabric.ArnaldoFabricClient"]},
+  "depends": {"fabricloader": ">=${loader}", "minecraft": "=${minecraft}", "java": ">=25", "fabric-api": ">=${api}"}
+}

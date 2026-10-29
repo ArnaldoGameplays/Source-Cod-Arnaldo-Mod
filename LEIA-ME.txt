@@ -1,0 +1,77 @@
+EXÉRCITO DE ARNALDOS — 1.0.0
+Minecraft Java: 26.1, 26.1.1, 26.1.2, 26.2 e 26.3
+Fabric e NeoForge — Java 25 ou superior
+
+INSTALAÇÃO
+Feche o jogo, retire o JAR anterior do Exército de Arnaldos da pasta mods
+e coloque apenas o JAR correspondente à versão exata do Minecraft e ao
+carregador da sua instância. Não coloque Fabric e NeoForge juntos.
+Fabric também requer Fabric API da mesma versão do Minecraft.
+O mod deve estar no cliente e, se jogar em servidor, no servidor também.
+
+Versão | Fabric Loader mínimo | Fabric API mínimo | NeoForge mínimo
+26.1   | 0.18.4 | 0.145.1+26.1   | 26.1.0.19-beta
+26.1.1 | 0.18.4 | 0.145.4+26.1.1 | 26.1.1.15-beta
+26.1.2 | 0.18.4 | 0.155.3+26.1.2 | 26.1.2.124
+26.2   | 0.18.4 | 0.161.0+26.2   | 26.2.0.93
+26.3   | 0.19.3 | 0.165.0+26.3   | 26.3.0.99
+
+COMANDOS
+/arnaldo — Cria um Arnaldo
+/arnaldo <número> — Cria vários Arnaldos
+/arnaldo remove — Remove seus Arnaldos
+/arnaldo nick hide — Esconde os nomes
+/arnaldo nick show — Mostra os nomes
+/arnaldo health <número> — Define a vida dos seus Arnaldos
+/arnaldo godmode true — Ativa a invulnerabilidade
+/arnaldo godmode false — Desativa a invulnerabilidade
+
+VIDA E GODMODE
+Adultos e bebês começam com 20 pontos de vida (10 corações), como um
+jogador normal, e podem morrer. Não regeneram vida automaticamente.
+Glow Berries curam 4 pontos por interação enquanto estiverem feridos.
+Com a vida cheia, Glow Berries continuam servindo para reprodução e
+crescimento. Usá-las nunca é interpretado como ordem para sentar.
+
+Exemplo: /arnaldo health 40 dá 40 pontos (20 corações) aos seus Arnaldos.
+O número pode ser decimal, entre 1 e 1024 pontos. O comando altera a vida
+máxima e preenche a vida dos companheiros atualmente carregados.
+Companheiros descarregados recebem o novo máximo quando carregarem;
+novos companheiros e bebês já nascem com o máximo escolhido.
+O comando não altera a vida do jogador.
+
+Godmode começa em false. Em true, impede dano, protege contra /kill e
+resgata do vazio. Desligá-lo permite dano e morte normais imediatamente.
+As escolhas de vida, godmode e visibilidade do nome ficam salvas por dono
+no mundo, entre dimensões, inclusive depois de sair e entrar novamente.
+Cada jogador altera apenas os próprios Arnaldos.
+
+NOME E COMPATIBILIDADE COM MUNDOS
+O nome agora é exatamente ArnaldoGameplay, branco, sem espaços.
+Arnaldos antigos recebem o nome corrigido ao carregar.
+O erro que fazia nick hide falhar após reabrir o mundo foi corrigido no
+carregamento dos dados salvos. Preferências antigas são importadas quando
+o arquivo legado está presente. Preferências já perdidas precisam ser
+definidas novamente com /arnaldo nick hide.
+O registro arnaldo:arnaldo e o ID do mod continuam iguais.
+
+RECURSOS MANTIDOS
+Seguem o dono de perto, respeitam seu espaço e teleportam quando preciso.
+Atacar um mob dá prioridade a perseguir e atacar esse alvo.
+Botão direito alterna sentar/levantar; sentado para de acompanhar.
+Recolhem itens e armaduras dropados. Ferramentas usam seu dano normal.
+O comando remove funciona mesmo em godmode, devolve o equipamento e
+também marca os companheiros descarregados para remoção ao carregar.
+
+ALCANCE DO PORTE
+Esta distribuição cobre todas as versões estáveis publicadas de 26.1
+até 26.3 em 28/10/2026. Cada JAR exige a versão exata indicada no nome.
+Snapshots, pre-releases, release candidates e versões futuras não estão
+incluídos nem são declarados compatíveis sem um novo porte.
+
+COMPILAÇÃO DO CÓDIGO-FONTE
+Requer JDK 25. Na pasta do projeto, por exemplo:
+gradlew.bat -PmcVersion=26.3 :fabric:build :neoforge:build
+Os JARs ficam em fabric/build/libs e neoforge/build/libs.
+O código dos testes é incluído apenas usando -PsmokeTest; não está nos
+JARs de produção. Consulte VALIDACAO-26x.txt para os testes executados.

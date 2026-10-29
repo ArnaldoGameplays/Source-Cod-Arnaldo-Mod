@@ -1,0 +1,21 @@
+modLoader="javafml"
+loaderVersion="[4,)"
+license="All Rights Reserved"
+[[mods]]
+modId="arnaldo"
+version="${version}"
+displayName="Exército de Arnaldos"
+logoFile="assets/arnaldo/icon.png"
+description='''Seu exército de companheiros ArnaldoGameplays.'''
+[[dependencies.arnaldo]]
+modId="neoforge"
+type="required"
+versionRange="[${neo},)"
+ordering="NONE"
+side="BOTH"
+[[dependencies.arnaldo]]
+modId="minecraft"
+type="required"
+versionRange="[${minecraft}]"
+ordering="NONE"
+side="BOTH"

@@ -1,0 +1,27 @@
+plugins { id 'net.fabricmc.fabric-loom' version '1.17.17' }
+base { archivesName = 'exercito-de-arnaldos-fabric' }
+dependencies {
+    minecraft "com.mojang:minecraft:${rootProject.mcVersion}"
+    implementation "net.fabricmc:fabric-loader:${rootProject.loaderVersion}"
+    implementation "net.fabricmc.fabric-api:fabric-api:${rootProject.targets[rootProject.mcVersion][0]}"
+}
+processResources {
+    inputs.properties(version: project.version, minecraft: rootProject.mcVersion, api: rootProject.targets[rootProject.mcVersion][0], loader: rootProject.loaderVersion)
+    filesMatching('fabric.mod.json') { expand version: project.version, minecraft: rootProject.mcVersion, api: rootProject.targets[rootProject.mcVersion][0], loader: rootProject.loaderVersion }
+}
+if (rootProject.hasProperty('smokeTest')) {
+    tasks.register('renderSmoke', JavaExec) {
+        dependsOn classes
+        classpath = sourceSets.main.runtimeClasspath
+        mainClass = 'br.com.arnaldo.smoke.RenderTests'
+        workingDir rootProject.projectDir
+    }
+    loom.runs.server { runDir rootProject.file('../test-26x/fabric-'+rootProject.mcVersion).absolutePath; programArg '--nogui' }
+    processResources.inputs.property 'smokeTest', true
+    processResources.doLast {
+        def metadata = new File(destinationDir, 'fabric.mod.json')
+        def json = new groovy.json.JsonSlurper().parse(metadata)
+        json.entrypoints.main.add('br.com.arnaldo.smoke.FabricSmoke')
+        metadata.text = groovy.json.JsonOutput.prettyPrint(groovy.json.JsonOutput.toJson(json))
+    }
+}
